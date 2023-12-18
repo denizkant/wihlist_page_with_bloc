@@ -1,18 +1,21 @@
-import 'package:bloc_deneme/features/home/bloc/home_bloc.dart';
+import 'package:bloc_deneme/features/cart/bloc/cart_bloc.dart';
 import 'package:bloc_deneme/features/home/model/home_product_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-class ProductTileWidget extends StatelessWidget {
+class CartTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
-  final HomeBloc homeBloc;
-  const ProductTileWidget(
-      {super.key, required this.productDataModel, required this.homeBloc});
+  final CartBloc cartBloc;
+  const CartTileWidget(
+      {super.key, required this.productDataModel, required this.cartBloc});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.black)),
@@ -27,38 +30,30 @@ class ProductTileWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(productDataModel.imageUrl))),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            productDataModel.name,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+          const SizedBox(height: 20),
+          Text(productDataModel.name,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Text(productDataModel.description),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "\$" + productDataModel.price.toString(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+              Text("\$" + productDataModel.price.toString(),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Row(
                 children: [
                   IconButton(
                       onPressed: () {
-                        homeBloc.add(HomeProductWishListButtonClickedEvent(
-                            clickedProduct: productDataModel));
+                        // homeBloc.add(HomeProductWishlistButtonClickedEvent(
+                        //     clickedProduct: productDataModel));
                       },
-                      icon: Icon(Icons.favorite)),
+                      icon: Icon(Icons.favorite_border)),
                   IconButton(
                       onPressed: () {
-                        homeBloc.add(HomeProductCartButtonClickedEvent(
-                            clickedProduct: productDataModel));
+                        cartBloc.add(CartRemoveFromCartEvent(
+                            productDataModel: productDataModel));
                       },
-                      icon: Icon(Icons.shopping_bag_outlined)),
+                      icon: Icon(Icons.shopping_bag)),
                 ],
               )
             ],
