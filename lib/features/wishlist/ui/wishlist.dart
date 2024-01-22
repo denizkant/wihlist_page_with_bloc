@@ -23,7 +23,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart Items'),
+        title: Text('Wishlist Items'),
       ),
       body: BlocConsumer<WishlistBloc, WishlistState>(
         bloc: wishListBloc,
@@ -48,6 +48,5 @@ class _WishListPageState extends State<WishListPage> {
         },
       ),
     );
-    ;
   }
 }
